@@ -1,0 +1,57 @@
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+public class BlueDotApp {
+    private JFrame frame;
+    private JPanel panel;
+    private JLabel label;
+    private JTextField inputField;
+
+    public BlueDotApp() {
+        frame = new JFrame("Blue Dot App");
+        panel = new JPanel();
+        label = new JLabel("Enter a number:");
+        inputField = new JTextField(10);
+
+        panel.add(label);
+        panel.add(inputField);
+
+        frame.add(panel);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setSize(300, 100);
+        frame.setVisible(true);
+
+        inputField.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                String input = inputField.getText();
+                boolean isNumber = isNumeric(input);
+                if (isNumber) {
+                    panel.setBackground(Color.BLUE);
+                } else {
+                    panel.setBackground(Color.YELLOW);
+                }
+            }
+        });
+    }
+
+    private boolean isNumeric(String str) {
+        try {
+            Double.parseDouble(str);
+            return true;
+        } catch (NumberFormatException e) {
+            return false;
+        }
+    }
+
+    public static void main(String[] args) {
+        SwingUtilities.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                new BlueDotApp();
+            }
+        });
+    }
+}
